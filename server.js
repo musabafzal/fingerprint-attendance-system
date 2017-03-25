@@ -14,8 +14,8 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var db = require('./config/database.js');
-var model = require('./app/models/user.js');
 // configuration ===============================================================
+app.use(bodyParser.urlencoded({extended:false}))
 
 db.connect(function(err) {
   if (err) {
