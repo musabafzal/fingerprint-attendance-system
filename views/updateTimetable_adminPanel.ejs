@@ -5,7 +5,7 @@
 <body>
 
     <!-- LOGIN FORM -->
-    <form action="/addTimetable" method="post">
+    <form action="/panel/admin/updateTimetable" method="post">
         <%
         days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
@@ -30,7 +30,7 @@
             <td><%=lectureHalls[l]%></td>
           <% for(var o=0;o<8;o++) { id++%>
             <td>
-              <input type="user" class="lol" name="<%=id%>,<%=days[d]%>,<%=timeSlots[o]%>,<%=lectureHalls[l]%>">
+              <input type="user" class="lol" value="<%=slots[id-1].courseCode%>" name="field_<%=id%>">
             </td>
             <%}%>
           </tr>

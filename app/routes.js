@@ -1,4 +1,6 @@
 // app/routes.js
+var Slots= require('../app/models/slotsModel');
+
 module.exports = function(app, passport) {
     // =====================================
     // HOME PAGE (with login links) ========
@@ -8,12 +10,10 @@ module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         res.redirect('/login'); // load the index.ejs file
     });
-    app.get('/addTimetable', function(req, res) {
-        res.render('addTimetable.ejs'); // load the index.ejs file
+    app.get('/enroll', function(req, res) {
+        res.render('enrollInCourses_studentPanel.ejs'); // load the index.ejs file
     });
-    app.post('/addTimetable', function(req, res) {
-        res.render('addTimetable.ejs'); // load the index.ejs file
-    });
+
     // =====================================
     // LOGIN ===============================
     // =====================================
@@ -43,6 +43,26 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/panel/:user/:method', isLoggedIn, function(req, res) {
+      if(req.params.user=='admin'&&req.params.method=='updateTimetable'){
+        Slots.getAllSlots(function(slots){
+          console.log(slots[4].courseCode)
+          res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
+                user: req.user, // get the user out of session and pass to template
+                slots: slots
+            });
+        });
+      }
+      else{
+        res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
+              user: req.user // get the user out of session and pass to template
+          });
+        }
+    });
+    app.post('/panel/admin/updateTimetable', isLoggedIn, function(req, res) {
+        Slots.insertCourses(req.body);
+        res.redirect('/panel/admin/')
+    });
     // =====================================
     // LOGOUT ==============================
     // =====================================
@@ -74,6 +94,10 @@ module.exports = function(app, passport) {
 });
 
 };
+
+function assign(){
+
+}
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

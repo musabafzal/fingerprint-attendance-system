@@ -15,7 +15,6 @@ var session      = require('express-session');
 
 var db = require('./config/database.js');
 // configuration ===============================================================
-app.use(bodyParser.urlencoded({extended:false}))
 
 db.connect(function(err) {
   if (err) {

@@ -1,8 +1,29 @@
 var db = require('../../config/database.js')
 
-exports.findOne = function(done) {
+exports.insertCourses = function(courseList) {
+  var i=0
+  for(course in courseList){
+    i++
+      if(courseList[course]!=''){
+        console.log(i)
+        query=db.get().query('UPDATE slots SET courseCode=? WHERE id=?',[courseList[course],i],
+        function(err,rows,fields){
+        });
+      }
+  }
+}
+
+exports.getAllSlots = function(done) {
+  var i=0
+  query=db.get().query('SELECT courseCode FROM slots',
+  function(err,rows,fields){
+    done(rows)
+  });
+}
 
 
+
+/*
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 timeSlots= ['08:00-08:50', '09:00-09:50', '10:30-11:20', '11:30-12:20', '12:30-13:20', '14:30-15:20', '15:30-16:20', '16:30-17:20'];
@@ -26,3 +47,4 @@ for(var d=0;d<5;d++) {
 }
 
 }
+*/
