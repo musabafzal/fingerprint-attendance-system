@@ -46,10 +46,17 @@ module.exports = function(app, passport) {
     app.get('/panel/:user/:method', isLoggedIn, function(req, res) {
       if(req.params.user=='admin'&&req.params.method=='updateTimetable'){
         Slots.getAllSlots(function(slots){
-          console.log(slots[4].courseCode)
           res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
                 user: req.user, // get the user out of session and pass to template
                 slots: slots
+            });
+        });
+      }
+      else if(req.params.user=='student'&&req.params.method=='registerCourses'){
+        Slots.getUniqueCourses(function(courseList){
+          res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
+                user: req.user, // get the user out of session and pass to template
+                courseList: courseList
             });
         });
       }
@@ -59,10 +66,13 @@ module.exports = function(app, passport) {
           });
         }
     });
+
+
     app.post('/panel/admin/updateTimetable', isLoggedIn, function(req, res) {
         Slots.insertCourses(req.body);
         res.redirect('/panel/admin/')
     });
+
     // =====================================
     // LOGOUT ==============================
     // =====================================

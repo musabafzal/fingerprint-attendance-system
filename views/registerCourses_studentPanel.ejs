@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<body>
+
+  <form action="/">
+    <datalist id="courses">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>">
+      <%}%>
+    </datalist>
+
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+    <input list="courses">
+
+  </form>
+
+</body>
+</html>

@@ -13,6 +13,14 @@ exports.insertCourses = function(courseList) {
   }
 }
 
+exports.getUniqueCourses = function(done) {
+
+  query=db.get().query('SELECT DISTINCT courseCode FROM slots ORDER BY courseCode;',
+  function(err,rows,fields){
+    done(rows)
+  });
+}
+
 exports.getAllSlots = function(done) {
   var i=0
   query=db.get().query('SELECT courseCode FROM slots',
