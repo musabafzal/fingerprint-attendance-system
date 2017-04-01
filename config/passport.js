@@ -42,7 +42,6 @@ passport.use('login', new LocalStrategy({
 function(req, id, password, done) { // callback with email and password from our form
     // find a user whose email is the same as the forms email
     // we are checking to see if the user trying to login already exists
-    console.log(password)
     User.findUserAndValidatePass(req.params.user , id, function(err, user) {
         // if there are any errors, return the error before anything else
         if (err){

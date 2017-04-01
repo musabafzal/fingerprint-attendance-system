@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<body>
+  <table>
+    <tr>
+      <th>Date</th>
+    </tr>
+<%
+for(date in uniqueDates){%>
+  <tr>
+    <td>
+      <a href="/panel/ta/viewAttendance/<%=courseCode%>/<%=uniqueDates[date].date%>"><%=uniqueDates[date].date%></a>
+    </td>
+  </tr>
+<%}
+%>
+</table>
+</body>
+</html>

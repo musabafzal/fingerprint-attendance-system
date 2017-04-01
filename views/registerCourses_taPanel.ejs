@@ -2,7 +2,7 @@
 <html>
 <body>
 
-  <form action="/panel/student/registerCourses" method="post">
+  <form action="/panel/ta/registerCourses" method="post">
     <datalist id="courses">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>">
@@ -14,10 +14,6 @@
     <input list="courses" name="course_3">
     <input list="courses" name="course_4">
     <input list="courses" name="course_5">
-    <input list="courses" name="course_6">
-    <input list="courses" name="course_7">
-    <input list="courses" name="course_8">
-    <input list="courses" name="course_9">
 
     <button type="submit">Register Courses</button>
   </form>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<body>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Status</th>
+    </tr>
+<%
+for(regNo in attendance){%>
+  <tr>
+  <td><%=attendance[regNo].regNo%></td>
+  <td><%=attendance[regNo].status%></td>
+  </tr>
+<%}
+%>
+</table>
+</body>
+</html>

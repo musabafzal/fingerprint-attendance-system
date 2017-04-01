@@ -1,5 +1,8 @@
 // app/routes.js
 var Slots= require('../app/models/slotsModel');
+var Courses= require('../app/models/coursesModel');
+var Attendance= require('../app/models/attendanceModel');
+var Populate= require('../app/models/populateModel');
 
 module.exports = function(app, passport) {
     // =====================================
@@ -10,8 +13,10 @@ module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         res.redirect('/login'); // load the index.ejs file
     });
-    app.get('/enroll', function(req, res) {
-        res.render('enrollInCourses_studentPanel.ejs'); // load the index.ejs file
+    app.get('/populateDataBase', function(req, res) {
+        //Populate.populateStudentTable();
+        Populate.populateTaTable();
+        res.end();
     });
 
     // =====================================
@@ -59,6 +64,29 @@ module.exports = function(app, passport) {
                 courseList: courseList
             });
         });
+      }else if(req.params.user=='student'&&req.params.method=='viewAttendance'){
+        Courses.getCoursesByRegNo(req.user.id, function(courses){
+          res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
+                user: req.user, // get the user out of session and pass to template
+                courses: courses
+            });
+        });
+      }
+      else if(req.params.user=='ta'&&req.params.method=='viewAttendance'){
+        Courses.getCoursesById(req.user.id, function(courses){
+          res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
+                user: req.user, // get the user out of session and pass to template
+                courses: courses
+            });
+        });
+      }
+      else if(req.params.user=='ta'&&req.params.method=='registerCourses'){
+        Slots.getUniqueCourses(function(courseList){
+          res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
+                user: req.user, // get the user out of session and pass to template
+                courseList: courseList
+            });
+        });
       }
       else{
         res.render(req.params.method+'_'+req.user.type+'Panel.ejs', {
@@ -67,10 +95,48 @@ module.exports = function(app, passport) {
         }
     });
 
+    app.get('/panel/student/viewAttendance/:courseCode', isLoggedIn, function(req, res) {
+      Attendance.getAttendanceByStudentCourse(req.user.id, req.params.courseCode, function(courseAttendance){
+       res.render('courseAttendance_studentPanel.ejs', {
+             user: req.user, // get the user out of session and pass to template
+             courseAttendance: courseAttendance
+       });
+      })
+    });
+
+    app.get('/panel/ta/viewAttendance/:courseCode', isLoggedIn, function(req, res) {
+      Attendance.getUniqueDatesByTaCourse(req.params.courseCode, function(uniqueDates){
+       res.render('uniqueDates_taPanel.ejs', {
+             user: req.user, // get the user out of session and pass to template
+             uniqueDates: uniqueDates,
+             courseCode: req.params.courseCode
+       });
+      })
+    });
+
+    app.get('/panel/ta/viewAttendance/:courseCode/:date', isLoggedIn, function(req, res) {
+      Attendance.getAttendanceByDate(req.params.courseCode, req.params.date, function(attendance){
+       res.render('attendanceByDate_taPanel.ejs', {
+             user: req.user, // get the user out of session and pass to template
+             attendance: attendance,
+             courseCode: req.params.courseCode,
+             date: req.params.date
+       });
+      })
+    });
+
 
     app.post('/panel/admin/updateTimetable', isLoggedIn, function(req, res) {
         Slots.insertCourses(req.body);
         res.redirect('/panel/admin/')
+    });
+    app.post('/panel/student/registerCourses', isLoggedIn, function(req, res) {
+        Courses.registerStudentCourses(req.user.id, req.body)
+        res.redirect('/panel/student/registerCourses')
+    });
+    app.post('/panel/ta/registerCourses', isLoggedIn, function(req, res) {
+        Courses.registerTaCourses(req.user.id, req.body)
+        res.redirect('/panel/ta/registerCourses')
     });
 
     // =====================================
@@ -104,10 +170,6 @@ module.exports = function(app, passport) {
 });
 
 };
-
-function assign(){
-
-}
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

@@ -4,7 +4,8 @@ exports.insertCourses = function(courseList) {
   var i=0
   for(course in courseList){
     i++
-      if(courseList[course]!=''){
+      //if(courseList[course]!='')
+      {
         console.log(i)
         query=db.get().query('UPDATE slots SET courseCode=? WHERE id=?',[courseList[course],i],
         function(err,rows,fields){
