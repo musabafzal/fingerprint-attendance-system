@@ -3,21 +3,51 @@
 <body>
 
   <form action="/panel/student/registerCourses" method="post">
-    <datalist id="courses">
+    <select name="course_1">
       <% for(course in courseList) {%>
-        <option value="<%=courseList[course].courseCode%>">
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
-    </datalist>
-
-    <input list="courses" name="course_1">
-    <input list="courses" name="course_2">
-    <input list="courses" name="course_3">
-    <input list="courses" name="course_4">
-    <input list="courses" name="course_5">
-    <input list="courses" name="course_6">
-    <input list="courses" name="course_7">
-    <input list="courses" name="course_8">
-    <input list="courses" name="course_9">
+    </select>
+    <select name="course_2">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+    <select name="course_3">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+    <select name="course_4">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+    <select name="course_5">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+    <select name="course_6">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+    <select name="course_7">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+    <select name="course_8">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+    <select name="course_9">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
 
     <button type="submit">Register Courses</button>
   </form>
