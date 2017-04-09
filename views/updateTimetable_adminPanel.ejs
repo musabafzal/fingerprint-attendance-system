@@ -4,9 +4,9 @@
 
 <body>
 
-    <!-- LOGIN FORM -->
-    <form action="/panel/admin/updateTimetable" method="post">
-        <%
+  <!-- LOGIN FORM -->
+  <form action="/panel/admin/updateTimetable" method="post">
+    <%
         days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
         timeSlots= ['08:00-08:50', '09:00-09:50', '10:30-11:20', '11:30-12:20', '12:30-13:20', '14:30-15:20', '15:30-16:20', '16:30-17:20'];
@@ -16,47 +16,59 @@
                         , 'MCE LH4', 'MCE Main'];
         id=0;%>
 
-        <%for(var d=0;d<5;d++) {%>
-          <h2 style="width:100%; text-align:center;"><%= days[d]%></h2>
-          <table style="width:100%; ">
+      <%for(var d=0;d<5;d++) {%>
+        <h2 style="width:100%; text-align:center;">
+          <%= days[d]%>
+        </h2>
+        <table style="width:100%; ">
           <tr>
             <th></th>
-          <%for(var t=0;t<8;t++) {%>
-              <th><%= timeSlots[t] %></th>
-          <%}%>
+            <%for(var t=0;t<8;t++) {%>
+              <th>
+                <%= timeSlots[t] %>
+              </th>
+              <%}%>
           </tr>
           <%for(var l=0;l<25;l++) {%>
             <tr>
-            <td><%=lectureHalls[l]%></td>
-          <% for(var o=0;o<8;o++) {
+              <td>
+                <%=lectureHalls[l]%>
+              </td>
+              <% for(var o=0;o<8;o++) {
             id++
             %>
-            <td>
-              <input type="user" class="lol" value="<%=slots[id-1].courseCode%>" name="field_<%=id%>">
-            </td>
+                <td>
+                  <input type="user" class="lol" value="<%=slots[id-1].courseCode%>" name="field_<%=id%>">
+                </td>
+                <%}%>
+            </tr>
             <%}%>
-          </tr>
-          <%}%>
         </table>
         <% } %>
-        <button>Upload TimeTable</button>
-    </form>
+          <button>Upload TimeTable</button>
+  </form>
 
-    <hr>
-<style>
-table {
-    border-collapse: collapse;
-}
-table, th, td {
-   border: 1px solid black;
-}
-td{
-  text-align: center;
-}
-.lol{
-  text-align: center;
-  width: 97%;
-}
-</style>
+  <hr>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+    
+    td {
+      text-align: center;
+    }
+    
+    .lol {
+      text-align: center;
+      width: 97%;
+    }
+  </style>
 </body>
+
 </html>

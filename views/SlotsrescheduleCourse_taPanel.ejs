@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+
+<body>
+
+  <form action="/panel/ta/rescheduleCourse/<%=courseCode%>/getSlots?day=<%=day%>&timeSlots=<%=time%>&classSlot=<%=classSlot%>" method="POST">
+    <%for(var i=0;i<slots.length;i++){%>
+      <input type="radio" name="lectureHall" value="<%=slots[i].lectureHall%>">
+      <%=slots[i].lectureHall%><br>
+        <%}%>
+          <input type="submit">
+  </form>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+
+<body>
+  <%timeSlots= ['08:00-08:50', '09:00-09:50', '10:30-11:20', '11:30-12:20', '12:30-13:20', '14:30-15:20', '15:30-16:20', '16:30-17:20'];%>
+    <%timeSlots2= ['08:00-08:50', '09:00-09:50', '10:00-10:50', '11:00-11:50', '12:00-12:50', '14:30-15:20', '15:30-16:20', '16:30-17:20'];%>
+      <%day=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']%>
+
+        <div>
+          <div>Select the class which you want to reschedule</div>
+          <table>
+            <tr>
+              <th></th>
+              <th>Lecture Hall</th>
+              <th>Day</th>
+              <th>Time</th>
+            </tr>
+            <%for(var i=0;i<courseSlots.length;i++){%>
+              <tr>
+
+                <td><input type="radio" name="Slot" value="<%=courseSlots[i].id%>" id="<%=courseSlots[i].id%>">
+                  <%=courseSlots[i].id%>
+                </td>
+                <td>
+                  <%=courseSlots[i].lectureHall%>
+                </td>
+                <td>
+                  <%=courseSlots[i].day%>
+                </td>
+                <td>
+                  <%=courseSlots[i].timeSlot%>
+                </td>
+              </tr>
+              <%}%>
+          </table>
+        </div>
+        <div>
+          <label>Day</label>
+          <select name="day" value="Monday" onchange=func1(this.value) id="sel">
+            
+              <option value="Monday" id="option">Monday</option>
+              <option value="Tuesday" id="option">Tuesday</option>
+              <option value="Wednesday" id="option">Wednesday</option>
+              <option value="Thursday" id="option">Thursday</option>
+              <option value="Friday" id="option">Friday</option>
+          
+          </select> </div>
+        <div>
+          <label>Time</label>
+          <select name="timeSlot" id="sel2">
+            
+              <option value="08:00-08:50" id="opt1">08:00-08:50</option>
+              <option value="09:00-09:50" id="opt2">09:00-09:50</option>
+              <option value="10:30-11:20" id="opt3">10:30-11:20</option>
+              <option value="11:30-12:20" id="opt4">11:30-12:20</option>
+              <option value="12:30-13:20" id="opt5">12:30-13:20</option>
+              <option value="14:30-15:20" id="opt6">14:30-15:20</option>
+              <option value="15:30-16:20" id="opt7">15:30-16:20</option>
+              <option value="16:30-17:20" id="opt8">16:30-17:20</option>
+          
+          </select>
+        </div>
+
+        <button onclick="showLH()">Get Free Lecture Halls</button>
+
+        <div id="txtHint"></div>
+
+
+        <script>
+          function func1(val) {
+
+            if (val == 'Friday') {
+
+              document.getElementById("opt3").value = "10:00-10:50";
+              document.getElementById("opt3").innerHTML = "10:00-10:50";
+              document.getElementById("opt4").value = "11:00-11:50";
+              document.getElementById("opt4").innerHTML = "11:00-11:50";
+              document.getElementById("opt5").value = "12:00-12:50";
+              document.getElementById("opt5").innerHTML = "12:00-12:50";
+            }
+            else {
+              document.getElementById("opt3").value = "10:30-11:20";
+              document.getElementById("opt3").innerHTML = "10:30-11:20";
+              document.getElementById("opt4").value = "11:30-12:20";
+              document.getElementById("opt4").innerHTML = "11:30-12:20";
+              document.getElementById("opt5").value = "12:30-13:20";
+              document.getElementById("opt5").innerHTML = "12:30-13:20";
+            }
+          }
+
+          function showLH() {
+            day = document.getElementById("sel").value;
+            time = document.getElementById("sel2").value;
+            var classSlot = document.querySelector('input[name = "Slot"]:checked').value;    
+            if (day == "" || time == "" || classSlot == "") {
+              document.getElementById("txtHint").innerHTML = "Select Day, Time and Class Slot";
+              return;
+            }
+            if (window.XMLHttpRequest) {
+              // code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp = new XMLHttpRequest();
+            } else { // code for IE6, IE5
+              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+              }
+            }
+            xmlhttp.open("GET", "/panel/ta/rescheduleCourse/<%=courseCode%>/getSlots?day=" + day + "&timeSlots=" + time + "&classSlot=" + classSlot, true);
+            xmlhttp.send();
+          }
+        </script>
+        <style>
+          table {
+            border-collapse: collapse;
+          }
+          
+          table,
+          th,
+          td {
+            border: 1px solid black;
+          }
+          
+          td {
+            text-align: center;
+          }
+        </style>
+</body>
+
+</html>

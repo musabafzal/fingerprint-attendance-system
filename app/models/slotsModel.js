@@ -1,36 +1,93 @@
 var db = require('../../config/database.js')
 
-exports.insertCourses = function(courseList) {
-  var i=0
-  for(course in courseList){
+exports.insertCourses = function (courseList) {
+  var i = 0
+  for (course in courseList) {
     i++
-      //if(courseList[course]!='')
-      {
-        console.log(i)
-        query=db.get().query('UPDATE slots SET courseCode=? WHERE id=?',[courseList[course],i],
-        function(err,rows,fields){
+    //if(courseList[course]!='')
+    {
+      console.log(i)
+      query = db.get().query('UPDATE slots SET courseCode=? WHERE id=?', [courseList[course], i],
+        function (err, rows, fields) {
         });
-      }
+    }
   }
 }
 
-exports.getUniqueCourses = function(done) {
+exports.getUniqueCourses = function (done) {
 
-  query=db.get().query('SELECT DISTINCT courseCode FROM slots ORDER BY courseCode;',
-  function(err,rows,fields){
-    done(rows)
-  });
+  query = db.get().query('SELECT DISTINCT courseCode FROM slots ORDER BY courseCode;',
+    function (err, rows, fields) {
+      done(rows)
+    });
 }
 
-exports.getAllSlots = function(done) {
-  var i=0
-  query=db.get().query('SELECT courseCode FROM slots',
-  function(err,rows,fields){
-    done(rows)
-  });
+exports.getAllSlots = function (done) {
+  var i = 0
+  query = db.get().query('SELECT courseCode FROM slots',
+    function (err, rows, fields) {
+      done(rows)
+    });
 }
 
+exports.getFreeSlots = function (day, timeSlot, done) {
+  var i = 0
+  query = db.get().query('SELECT lectureHall FROM slots WHERE day=? and timeSlot=? and courseCode=?', [day, timeSlot, ''],
+    function (err, rows, fields) {
 
+      done(rows)
+    });
+}
+exports.getCourseSlots = function (courseCode, done) {
+  var i = 0
+  query = db.get().query('SELECT `id`,`lectureHall`,`day`,`timeSlot` FROM slots WHERE courseCode=?', [courseCode],
+    function (err, rows, fields) {
+
+      done(rows)
+    });
+}
+
+exports.alterCourseSlots = function (id, newDay, newTimeSlot, lectureHall, courseCode, done) {
+  var i = 0
+  query = db.get().query('UPDATE slots SET courseCode=?,prevId=?,rescheduled=? WHERE lectureHall=? and day=? and timeSlot=?',
+    [courseCode, id,true, lectureHall, newDay, newTimeSlot], function (err, rows, fields) {
+      if (rows) {
+        query = db.get().query('UPDATE slots SET courseCode="" WHERE id=? ',
+          [ id],
+          function (err, rows, fields) {
+
+            done(rows)
+          });
+      }
+    });
+
+
+}
+
+exports.getRescheduledSlots=function(courseCode,done){
+  console.log(courseCode);
+  query=db.get().query('SELECT * FROM slots WHERE courseCode=? and rescheduled=?',[courseCode,true],function(err,rows,fields){
+    if(rows!=""){
+      console.log(rows[0].day);
+        var ans={
+          courseCode:courseCode,
+          day:rows[0].day,
+          timeSlot:rows[0].timeSlot,
+          lectureHall:rows[0].lectureHall
+        }
+        query=db.get().query('SELECT * FROM slots WHERE id=?',[rows[0].prevId,true],function(err,rows,fields){
+          ans.prevday=rows[0].day;
+          ans.prevtimeSlot=rows[0].timeSlot;
+          ans.prevlectureHall=rows[0].lectureHall;
+          console.log(ans);
+          done(ans)
+      })
+    }
+    else{
+      done('no')
+    }
+  })
+}
 
 /*
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
