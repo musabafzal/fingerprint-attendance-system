@@ -1,12 +1,37 @@
 <!-- views/index.ejs -->
 <!doctype html>
 <html>
+
 <body>
 
-        <p>Student Panel:</p>
+  <p>Student Panel:</p>
 
-      <p>  <a href="/panel/student/registerCourses">Register Courses</a> </p>
-      <p>  <a href="/panel/student/viewAttendance">View Attendance</a> </p>
+  <p> <a href="/panel/student/registerCourses">Register Courses</a> </p>
+  <p> <a href="/panel/student/viewAttendance">View Attendance</a> </p>
+
+  <p id="notification" > 
+  </p>
+  <script>
+    
+    // if (day == "" && time == "") {
+    //   document.getElementById("txtHint").innerHTML = "";
+    //   return;
+    // }
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else { // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("notification").innerHTML = this.responseText;
+      }
+    }
+    xmlhttp.open("GET", "/panel/student/notification", true);
+    xmlhttp.send();
+  </script>
 
 </body>
+
 </html>

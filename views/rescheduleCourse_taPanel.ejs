@@ -7,10 +7,8 @@ for(course in courses){
   currCourse=courses[course].courseCode.replace(/ /g,"_");
   %>
 
-  <p>  <a href="/panel/student/viewAttendance/<%=currCourse%>"><%=courses[course].courseCode%></a> </p>
+  <p>  <a href="/panel/ta/rescheduleCourse/<%=currCourse%>"><%=courses[course].courseCode%></a> </p>
 <%}
 %>
-
-
 </body>
 </html>
