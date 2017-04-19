@@ -3,7 +3,7 @@ var Slots = require('../app/models/slotsModel');
 var Courses = require('../app/models/coursesModel');
 var Attendance = require('../app/models/attendanceModel');
 var Populate = require('../app/models/populateModel');
-
+Attendance.setAttendanceByDay('Monday');
 module.exports = function (app, passport) {
     // =====================================
     // HOME PAGE (with login links) ========
