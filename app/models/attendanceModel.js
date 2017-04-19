@@ -13,6 +13,7 @@ exports.getAttendanceByStudentCourse = function (regNo, courseCode, done) {
 exports.getUniqueDatesByTaCourse = function (courseCode, done) {
 
   query = db.get().query('SELECT DISTINCT `date` FROM attendance WHERE `courseCode` = ?', [courseCode], function (err, result) {
+
     if (err) return done(err)
     done(result)
   })
@@ -25,8 +26,8 @@ exports.getAttendanceByDate = function (courseCode, date, done) {
     if (err) return done(err)
     done(result)
   })
-
 }
+
 function insertAttendanceByRegNo(row, timeSlot, courseCode, x) {
   if (row[x]) {
     var date = new Date();
@@ -58,12 +59,11 @@ function setStudentAttendance(courseCode, timeSlot, done) {
       //   console.log(rows[row])
       //   insertAttendanceByRegNo(rows[row].regNo, timeSlot, rows[row].courseCode, function (d) {
       //     if (d)
-
-      //   })
-      // }
+//=======
     }
   })
 }
+//<<<<<<< HEAD
 function startSetting(info, x) {
   if (info[x]) {
     setStudentAttendance(info[x].courseCode, info[x].timeSlot, function (row) {
@@ -82,4 +82,16 @@ exports.setAttendanceByDay = function (day) {
     console.log(info)
     startSetting(info, 0);
   })
+//=======
+}
+
+exports.updateAttendance = function (courseCode, date, regList, done) {
+  var i = 0
+  for (regNo in regList) {
+    i++
+      console.log(i+" "+regNo+" "+regList[regNo])
+      query = db.get().query('UPDATE attendance SET status=? WHERE regNo=? and courseCode=? and date=?', [regList[regNo], regNo, courseCode, date],function (err, rows, fields) {
+        });
+  }
+
 }
