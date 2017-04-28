@@ -145,7 +145,8 @@ module.exports = function (app, passport) {
         Attendance.getAttendanceByStudentCourse(req.user.id, req.params.courseCode, function (courseAttendance) {
             res.render('courseAttendance_studentPanel.ejs', {
                 user: req.user, // get the user out of session and pass to template
-                courseAttendance: courseAttendance
+                courseAttendance: courseAttendance,
+                courseCode : req.params.courseCode
             });
         })
     });
@@ -193,43 +194,6 @@ module.exports = function (app, passport) {
                 courseCode: req.params.courseCode,
                 date: req.params.date
             });
-<<<<<<< HEAD
-        });
-    }
-    else {
-        res.render(req.params.method + '_' + req.user.type + 'Panel.ejs', {
-            user: req.user // get the user out of session and pass to template
-        });
-    }
-});
-
-app.get('/panel/student/viewAttendance/:courseCode', isLoggedIn, function (req, res) {
-    Attendance.getAttendanceByStudentCourse(req.user.id, req.params.courseCode, function (courseAttendance) {
-        res.render('courseAttendance_studentPanel.ejs', {
-            user: req.user, // get the user out of session and pass to template
-            courseAttendance: courseAttendance,
-            courseCode: req.params.courseCode
-       });
-    })
-});
-
-app.get('/panel/ta/viewAttendance/:courseCode', isLoggedIn, function (req, res) {
-    Attendance.getUniqueDatesByTaCourse(req.params.courseCode, function (uniqueDates) {
-        res.render('uniqueDates_taPanel.ejs', {
-            user: req.user, // get the user out of session and pass to template
-            uniqueDates: uniqueDates,
-            courseCode: req.params.courseCode
-        });
-    })
-});
-app.get('/panel/ta/rescheduleCourse/:courseCode', isLoggedIn, function (req, res) {
-    Slots.getCourseSlots(req.params.courseCode, function (courseSlots) {
-        res.render('selectDateForReschedule.ejs', {
-            user: req.user,
-            courseCode: req.params.courseCode,
-            courseSlots: courseSlots
-=======
->>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
         })
     });
 

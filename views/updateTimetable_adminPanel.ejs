@@ -37,22 +37,7 @@
       <%for(var d=0;d<5;d++) {%>
 
         <table style="width:100%; " id="<%=days[d]%>" class="tabcontent">
-          <tr>
-            <th></th>
-            <%for(var t=0;t<8;t++) {%>
-              <th>
 
-                <%if(days[d]=='Friday'){%>
-
-                  <%=timeSlotsF[t]%>
-
-                <%}else{%>
-                 <%=timeSlots[t] %>
-                 <%}%>
-              </th>
-              <%}%>
-          </tr>
-          <%for(var l=0;l<25;l++) {%>
           <tbody style="width:inherit; display:table">
             <tr>
               <th></th>

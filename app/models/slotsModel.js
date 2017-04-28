@@ -162,7 +162,8 @@ exports.getPiIP=function(lectureHall, course, time, date, redate, done ){
       console.log('lol');
 
       done(rows, lectureHall, course, time, date, redate)
-
+    })
+}
 exports.getClassesByDay = function (day, done) {
   console.log(day)
   query = db.get().query('SELECT `courseCode`,`timeSlot`,`lectureHall` FROM slots WHERE day=? and courseCode!=""', day, function (err, rows) {
