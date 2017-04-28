@@ -1,65 +1,127 @@
-
 <!-- views/index.ejs -->
 <!doctype html>
 <html="en">
 
   <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>CMS</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>CMS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-<style>
-  #bg{
-  background-image: url("http://i63.tinypic.com/v7cxmb.png");
-  color: #4a494e;
-  font-family: Courier new;
-}
-</style>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  </head>
+  <style>
+    #bg {
+      background-image: url("http://i63.tinypic.com/v7cxmb.png");
+      color: #4a494e;
+      font-family: Courier new;
+    }
+  </style>
+
   <body id="bg">
-<div class="container">
+    <div class="container">
 
-<form class="form-horizontal" style="text-align:left" action="/panel/ta/registerCourses" method="post">
-<fieldset style="font-family: courier new">
-  <br><br>
-  <h2 style="text-align:center">Select Courses</h2><br><br>
-  <datalist id="courses">
+      <form class="form-horizontal" style="text-align:left" action="/panel/ta/registerCourses" method="post">
+        <fieldset style="font-family: courier new">
+          <br><br>
+          <h2 style="text-align:center ; color:papayawhip">Select Courses</h2><br><br>
+          <select name="course_1" id="slot1" class="slots" onchange="myfunction(this.value,1)">
       <% for(course in courseList) {%>
-        <option value="<%=courseList[course].courseCode%>">
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
-    </datalist>
-<input list="courses" name="course_1">
-  <br><br>
-    <input list="courses" name="course_2">
-  <br><br>
-    <input list="courses" name="course_3">
-  <br><br>
-    <input list="courses" name="course_4">
-  <br><br>
-    <input list="courses" name="course_5">
-  <br><br>
+    </select>
+          <br><br>
+          <select name="course_2" id="slot2" class="slots" onchange="myfunction(this.value,2)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
 
-    <button type="button" class="btn btn-default">Register Courses</button>
-</form>
-</div>
-    </div><!-- /.container -->
+    </select>
+          <br><br>
+          <select name="course_3" id="slot3" class="slots" onchange="myfunction(this.value,3)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+          <br><br>
+          <select name="course_4" id="slot4" class="slots" onchange="myfunction(this.value,4)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+          <br><br>
+          <select name="course_5" id="slot5" class="slots" onchange="myfunction(this.value,5)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+          <br><br>
+          <select name="course_6" id="slot6" class="slots" onchange="myfunction(this.value,6)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+          <br><br>
+          <select name="course_7" id="slot7" class="slots" onchange="myfunction(this.value,7)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+          <br><br>
+          <select name="course_8" id="slot8" class="slots" onchange="myfunction(this.value,8)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+          <br><br>
+
+          <select name="course_9" id="slot9" class="slots" onchange="myfunction(this.value,9)">
+      <% for(course in courseList) {%>
+        <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
+      <%}%>
+    </select>
+          <br><br>
+          <button type="submit" class="btn btn-default">Register Courses</button>
+      </form>
+    </div>
+    </div>
+    <!-- /.container -->
 
     <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
     <style>
-    .fix{
-      position: absolute;
+      .fix {
+        position: absolute;
         top: 2%;
         right: 2%;
-    }
+      }
     </style>
-    </body>
-</html>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".slots").select2();
+      });
+      function myfunction(value, num) {
+        var i = num + 1;
+        while (i <= 9) {
+
+          $("#slot" + i + " option[value=" + value + "]").remove();
+          i++;
+        }
+      }
+    </script>
+  </body>
+
+  </html>

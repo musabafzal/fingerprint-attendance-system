@@ -36,6 +36,9 @@
     </div>
     <div id="bg" style="text-align: center; padding: 200px 0px 500px 0px">
       <h2><a href="/panel/ta/registerCourses">Register Courses</a> / <a href="/panel/ta/viewUpdateAttendance">View Attendance</a> / <a href="/panel/ta/rescheduleCourse">Reschedule Class</a></h2>
+      <%if(message){%>
+      <p style=" color:papayawhip; font-size:medium"><%=message%></p>
+      <%}%>
     </div></div>
     <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
     <style>

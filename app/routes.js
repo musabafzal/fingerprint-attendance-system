@@ -3,12 +3,12 @@ var Slots = require('../app/models/slotsModel');
 var Courses = require('../app/models/coursesModel');
 var Attendance = require('../app/models/attendanceModel');
 var Populate = require('../app/models/populateModel');
-Attendance.setAttendanceByDay('Monday');
+
 module.exports = function (app, passport) {
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
-
+    
     app.get('/attendancePercentage', function (req, res) {
 
         Courses.setAttendancePercentages(function (info) {
@@ -74,7 +74,8 @@ module.exports = function (app, passport) {
 
 
         res.render(req.user.type + 'Panel.ejs', {
-            user: req.user // get the user out of session and pass to template
+            user: req.user, // get the user out of session and pass to template
+            message:""
         });
 
     });
@@ -205,12 +206,14 @@ module.exports = function (app, passport) {
 
     app.post('/panel/student/registerCourses', isLoggedIn, function (req, res) {
         Courses.registerStudentCourses(req.user.id, req.body)
-        res.redirect('/panel/student/registerCourses')
+       
+        res.render('studentPanel.ejs' , { message: 'Successfully Registered' })
+        
     });
 
     app.post('/panel/ta/registerCourses', isLoggedIn, function (req, res) {
         Courses.registerTaCourses(req.user.id, req.body)
-        res.redirect('/panel/ta/registerCourses')
+        res.render('taPanel.ejs' , { message: 'Successfully Registered' })
     });
 
     app.post('/panel/ta/viewUpdateAttendance/:courseCode/:date', isLoggedIn, function (req, res) {

@@ -34,8 +34,38 @@
     </div>
     <div id="bg" style="text-align: center; padding: 200px 0px 300px 0px">
       <h2><a href="/panel/student/registerCourses">Register Courses</a> / <a href="/panel/student/viewAttendance">View Attendance</a></h2>
+      <br>
+      <br>
+      <h4>Notification:</h4>
+      <p id="notification" style=" color:papayawhip; font-size:medium"  ></p>
+      <%if(message){%>
+      <p style=" color:papayawhip; font-size:medium"><%=message%></p>
+      <%}%>
     </div></div>
+
     <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+
+    
+   <script>
+     
+     // if (day == "" && time == "") {
+     //   document.getElementById("txtHint").innerHTML = "";
+     //   return;
+     // }
+     if (window.XMLHttpRequest) {
+       // code for IE7+, Firefox, Chrome, Opera, Safari
+       xmlhttp = new XMLHttpRequest();
+     } else { // code for IE6, IE5
+       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+     }
+     xmlhttp.onreadystatechange = function () {
+       if (this.readyState == 4 && this.status == 200) {
+         document.getElementById("notification").innerHTML = this.responseText;
+       }
+     }
+     xmlhttp.open("GET", "/panel/student/notification", true);
+     xmlhttp.send();
+   </script>
     <style>
     .fix{
       position: absolute;
