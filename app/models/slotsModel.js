@@ -117,7 +117,7 @@ exports.getLectureHall = function (lectureHall, done) {
   query = db.get().query('SELECT id,courseCode,timeSlot,rescheduled,prevId FROM slots WHERE lectureHall=? and day=? and timeSlot=?',[lectureHall,day,rHours], function (err, rows, fields) {
     if (err)
       console.log(err)
-    
+
     console.log(rows)
     if (rows[0].courseCode) {
       console.log(rows[0].courseCode)
@@ -146,13 +146,31 @@ exports.unSetRecheduled=function(info,done){
 
     if(rows){
        query=db.get().query('UPDATE slots SET coursecode=? WHERE id=?',[info.courseCode,info.prevId],function(err,rows,field){
-        
+
         if(rows){
           console.log(true);
           done(true)
         }
       })
     }
+  })
+}
+
+exports.getClassesByDay=function(day, done){
+  console.log(day)
+  query = db.get().query('SELECT `courseCode`,`timeSlot`,`lectureHall` FROM `slots` WHERE day=?',day, function (err, rows) {
+      if(err)
+      console.log(err);
+
+      done(rows)
+  })
+}
+exports.getPiIP=function(lectureHall, course, time, date, redate, done ){
+  query = db.get().query('SELECT `ip` FROM `raspberryPi` WHERE lectureHall=?',lectureHall, function (err, rows) {
+      if(err)
+      console.log('lol');
+
+      done(rows, lectureHall, course, time, date, redate)
   })
 }
 /*

@@ -134,8 +134,9 @@ app.get('/panel/student/viewAttendance/:courseCode', isLoggedIn, function (req, 
     Attendance.getAttendanceByStudentCourse(req.user.id, req.params.courseCode, function (courseAttendance) {
         res.render('courseAttendance_studentPanel.ejs', {
             user: req.user, // get the user out of session and pass to template
-            courseAttendance: courseAttendance
-        });
+            courseAttendance: courseAttendance,
+            courseCode: req.params.courseCode
+       });
     })
 });
 

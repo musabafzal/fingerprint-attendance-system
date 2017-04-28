@@ -4,9 +4,10 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 8080;
+var port     = process.env.PORT || 8085;
 var passport = require('passport');
 var flash    = require('connect-flash');
+var scheduler = require('./scheduler')
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -14,6 +15,8 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var db = require('./config/database.js');
+
+
 // configuration ===============================================================
 app.use(bodyParser.urlencoded({extended:false}))
 
@@ -26,7 +29,7 @@ db.connect(function(err) {
     console.log('Connected.')
   }
 })
-
+scheduler.run()
  require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application

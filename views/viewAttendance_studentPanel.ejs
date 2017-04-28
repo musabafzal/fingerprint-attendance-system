@@ -1,16 +1,58 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Admin Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 <body>
+<body style="font-family:Courier new">
 
-<%
-for(course in courses){
-  currCourse=courses[course].courseCode.replace(/ /g,"_");
-  %>
+<div class="container">
+  <h2 style="text-align:center">Attendance</h2> <br>
+  <h3 style="text-align:center">Select Course</h3><br>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Course</th>
+      </tr>
+    </thead>
+    <tbody>
 
-  <p>  <a href="/panel/student/viewAttendance/<%=currCourse%>"><%=courses[course].courseCode%></a> </p>
-<%}
-%>
+          <%
+          for(course in courses){
+            currCourse=courses[course].courseCode.replace(/ /g,"_");
+            %>
+            <tr>
+              <td>
+            <p>  <a href="/panel/student/viewAttendance/<%=currCourse%>"><%=courses[course].courseCode%></a> </p>
+          </td>
+          </tr>
+          <%}
+          %>
 
+    </tbody>
+  </table>
 
+<a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+<style>
+.fix{
+  position: absolute;
+    top: 2%;
+    right: 2%;
+}
+</style>
+
+</div>
 </body>
 </html>

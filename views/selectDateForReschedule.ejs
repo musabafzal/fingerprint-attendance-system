@@ -37,18 +37,18 @@
         <div>
           <label>Day</label>
           <select name="day" value="Monday" onchange=func1(this.value) id="sel">
-            
+
               <option value="Monday" id="option">Monday</option>
               <option value="Tuesday" id="option">Tuesday</option>
               <option value="Wednesday" id="option">Wednesday</option>
               <option value="Thursday" id="option">Thursday</option>
               <option value="Friday" id="option">Friday</option>
-          
+
           </select> </div>
         <div>
           <label>Time</label>
           <select name="timeSlot" id="sel2">
-            
+
               <option value="08:00-08:50" id="opt1">08:00-08:50</option>
               <option value="09:00-09:50" id="opt2">09:00-09:50</option>
               <option value="10:30-11:20" id="opt3">10:30-11:20</option>
@@ -57,7 +57,7 @@
               <option value="14:30-15:20" id="opt6">14:30-15:20</option>
               <option value="15:30-16:20" id="opt7">15:30-16:20</option>
               <option value="16:30-17:20" id="opt8">16:30-17:20</option>
-          
+
           </select>
         </div>
 
@@ -91,7 +91,7 @@
           function showLH() {
             day = document.getElementById("sel").value;
             time = document.getElementById("sel2").value;
-            var classSlot = document.querySelector('input[name = "Slot"]:checked').value;    
+            var classSlot = document.querySelector('input[name = "Slot"]:checked').value;
             if (day == "" || time == "" || classSlot == "") {
               document.getElementById("txtHint").innerHTML = "Select Day, Time and Class Slot";
               return;
@@ -115,16 +115,24 @@
           table {
             border-collapse: collapse;
           }
-          
+
           table,
           th,
           td {
             border: 1px solid black;
           }
-          
+
           td {
             text-align: center;
           }
+        </style>
+        <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+        <style>
+        .fix{
+          position: absolute;
+            top: 2%;
+            right: 2%;
+        }
         </style>
 </body>
 

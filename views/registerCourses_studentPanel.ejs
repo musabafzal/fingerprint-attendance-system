@@ -1,57 +1,105 @@
+
+
+<!-- views/index.ejs -->
 <!doctype html>
-<html>
+<html="en">
 
-<body>
+  <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CMS</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-  <form action="/panel/student/registerCourses" method="post">
-    <select name="course_1">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+  #bg{
+  background-image: url("http://i63.tinypic.com/v7cxmb.png");
+  color: #4a494e;
+  font-family: Courier new;
+}
+</style>
+  <body id="bg">
+<div class="container">
+
+<form action="/panel/student/registerCourses" method="post" class="form-horizontal" style="text-align:left">
+<fieldset style="font-family: courier new">
+  <br><br>
+  <h2 style="text-align:center">Select Courses</h2><br><br>
+  <select name="course_1">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
+    <br><br>
     <select name="course_2">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
+
     </select>
+    <br><br>
     <select name="course_3">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
+    <br><br>
     <select name="course_4">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
+    <br><br>
     <select name="course_5">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
+    <br><br>
     <select name="course_6">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
+    <br><br>
     <select name="course_7">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
+    <br><br>
     <select name="course_8">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
+<br><br>
+
     <select name="course_9">
       <% for(course in courseList) {%>
         <option value="<%=courseList[course].courseCode%>"><%=courseList[course].courseCode%></option>
       <%}%>
     </select>
-
-    <button type="submit">Register Courses</button>
-  </form>
-
-</body>
+<br><br>
+    <button type="submit" class="btn btn-default">Register Courses</button>
+</form>
+</div>
+    </div><!-- /.container -->
+    <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+    <style>
+    .fix{
+      position: absolute;
+        top: 2%;
+        right: 2%;
+    }
+    </style>
+    </body>
 </html>
