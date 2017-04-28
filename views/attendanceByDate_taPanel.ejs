@@ -22,25 +22,26 @@
 <div class="container">
   <h2 style="text-align:center">Attendance</h2> <br>
   <h3 style="text-align:center"><%=date%></h3><br>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Reg No.</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%
-      for(regNo in attendance){%>
-        <tr>
-        <td><%=attendance[regNo].regNo%></td>
-        <td><%=attendance[regNo].status%></td>
-        </tr>
-      <%}
-      %>
-    </tbody>
-  </table>
+	<form action="/panel/ta/viewUpdateAttendance/<%=courseCode%>/<%=date%>" method="post">
+   <table	class="table table-striped">
+     <tr>
+       <th>Date</th>
+       <th>Status</th>
+     </tr>
+     <%for(regNo in attendance){%>
+       <tr>
+       <td><%=attendance[regNo].regNo%></td>
+       <td>
+       <input type="user" value="<%=attendance[regNo].status%>" name="<%=attendance[regNo].regNo%>">
+       </td>
+       </tr>
+     <%}%>
+   </table>
+   <button type="submit"> Update
+   </button>
+   </form>
 </div>
+
 <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
 <style>
 .fix{
@@ -49,38 +50,6 @@
     right: 2%;
 }
 </style>
-=======
-<!doctype html>
-<html>
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
-<body>
-
- <!-- LOGIN FORM -->
- <form action="/panel/ta/viewUpdateAttendance/<%=courseCode%>/<%=date%>" method="post">
-  <table>
-    <tr>
-      <th>Date</th>
-      <th>Status</th>
-    </tr>
-    <%for(regNo in attendance){%>
-      <tr>
-      <td><%=attendance[regNo].regNo%></td>
-      <td>
-      <input type="user" value="<%=attendance[regNo].status%>" name="<%=attendance[regNo].regNo%>">
-      </td>
-      </tr>
-    <%}%>
-  </table>
-  <button type="submit"> Update
-  </button>
-  </form>
->>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
 </body>
 </html>

@@ -155,7 +155,6 @@ exports.unSetRecheduled = function (info, done) {
   })
 }
 
-<<<<<<< HEAD
 
 exports.getPiIP=function(lectureHall, course, time, date, redate, done ){
   query = db.get().query('SELECT `ip` FROM `raspberryPi` WHERE lectureHall=?',lectureHall, function (err, rows) {
@@ -163,7 +162,7 @@ exports.getPiIP=function(lectureHall, course, time, date, redate, done ){
       console.log('lol');
 
       done(rows, lectureHall, course, time, date, redate)
-=======
+
 exports.getClassesByDay = function (day, done) {
   console.log(day)
   query = db.get().query('SELECT `courseCode`,`timeSlot`,`lectureHall` FROM slots WHERE day=? and courseCode!=""', day, function (err, rows) {
@@ -171,7 +170,6 @@ exports.getClassesByDay = function (day, done) {
       console.log(err);
 
     done(rows);
->>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
   })
 }
 /*
