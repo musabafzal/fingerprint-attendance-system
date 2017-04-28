@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+<<<<<<< HEAD
 <body style="font-family:Courier new">
 
 <div class="container">
@@ -48,5 +49,21 @@
     right: 2%;
 }
 </style>
+=======
+  <table>
+    <tr>
+      <th>Date</th>
+    </tr>
+<%
+for(date in uniqueDates){%>
+  <tr>
+    <td>
+      <a href="/panel/ta/viewUpdateAttendance/<%=courseCode%>/<%=uniqueDates[date].date%>"><%=uniqueDates[date].date%></a>
+    </td>
+  </tr>
+<%}
+%>
+</table>
+>>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
 </body>
 </html>

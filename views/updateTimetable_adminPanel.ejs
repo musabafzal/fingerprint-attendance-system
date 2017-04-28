@@ -2,12 +2,15 @@
 <!doctype html>
 <html>
 
+<<<<<<< HEAD
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+=======
+>>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
 
 <body>
 
@@ -26,16 +29,17 @@
     <div class="tab">
       <%for(var d=0;d<5;d++) {%>
         <%if(d==0){%>
-        <button class="tablinks" onclick="openTable(event, 'Monday')" id="defaultOpen" > Monday</button>
-        <%}else{%>
-        <button class="tablinks" onclick="openTable(event, '<%=days[d]%>')"> <%= days[d]%></button>
-        <%}}%>
+          <button class="tablinks" onclick="openTable(event, 'Monday')" id="defaultOpen"> Monday</button>
+          <%}else{%>
+            <button class="tablinks" onclick="openTable(event, '<%=days[d]%>')"> <%= days[d]%></button>
+            <%}}%>
     </div>
 
     <form action="/panel/admin/updateTimetable" method="post">
       <%for(var d=0;d<5;d++) {%>
 
         <table style="width:100%; " id="<%=days[d]%>" class="tabcontent">
+<<<<<<< HEAD
           <tr>
             <th></th>
             <%for(var t=0;t<8;t++) {%>
@@ -52,23 +56,43 @@
               <%}%>
           </tr>
           <%for(var l=0;l<25;l++) {%>
+=======
+          <tbody style="width:inherit; display:table">
+>>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
             <tr>
-              <td>
-                <%=lectureHalls[l]%>
-              </td>
-              <% for(var o=0;o<8;o++) {
-            id++
-            %>
-                <td>
-                  <input type="user" class="lol" value="<%=slots[id-1].courseCode%>" name="field_<%=id%>">
-                </td>
+              <th></th>
+              <%for(var t=0;t<8;t++) {%>
+                <th>
+
+                  <%if(days[d]=='Friday'){%>
+
+                    <%=timeSlotsF[t]%>
+
+                      <%}else{%>
+                        <%=timeSlots[t] %>
+                          <%}%>
+                </th>
                 <%}%>
             </tr>
-            <%}%>
+            <%for(var l=0;l<25;l++) {%>
+              <tr>
+                <td>
+                  <%=lectureHalls[l]%>
+                </td>
+                <% for(var o=0;o<8;o++) {
+            id++
+            %>
+                  <td>
+                    <input type="user" class="lol" value="<%=slots[id-1].courseCode%>" name="field_<%=id%>">
+                  </td>
+                  <%}%>
+              </tr>
+              <%}%>
+          </tbody>
         </table>
         <% } %>
-        <div id="Button">
-          <button id="uploadButton">Upload TimeTable</button>
+          <div id="Button">
+            <button id="uploadButton">Upload TimeTable</button>
           </div>
 
     </form>
@@ -101,34 +125,42 @@
     <style>
       body {
         text-align: center;
-        align-content: center
+        align-content: center;
+        margin: 0px;
       }
 
       table {
-        width: 60%;
+        width: initial;
         border-collapse: collapse;
         align-self: center;
         margin-bottom: 2%
       }
 
       form {
+<<<<<<< HEAD
 
         margin-left: 3%;
+=======
+        width: 80%;
+        margin-left: 10%;
+>>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
         margin-top: 2.5%;
         margin-right: 3%;
         text-align: center;
         align-self: center;
         align-content: center;
-        border: none
+        border: none;
+        max-height: 80%, border: 0 none white;
       }
-      #Button{
-        width:inherit;
+      
+      #Button {
+        width: inherit;
         text-align: center;
         align-content: center;
         display: inline-block
-
       }
-      #uploadButton  {
+      
+      #uploadButton {
         display: none;
         background-color: #f1f1f1;
         border: none;
@@ -136,12 +168,12 @@
         cursor: pointer;
         padding: 14px 16px;
         transition: 0.3s;
-       border: 1px solid black;
-       border-radius: 5px
+        border: 1px solid black;
+        border-radius: 5px
       }
-
-       #Button button:hover {
-        background-color:#ddd
+      
+      #Button button:hover {
+        background-color: #ddd
       }
 
       table,
@@ -149,12 +181,16 @@
       td {
         border: 1px solid black;
       }
+<<<<<<< HEAD
 
 
+=======
+      
+>>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
       th,
       td {
         text-align: center;
-        font-size: 11px;
+        font-size: 10.5px;
         padding-left: 3px;
         padding-right: 3px
       }
@@ -162,7 +198,8 @@
       .lol {
         text-align: center;
         width: 100%;
-        border: none
+        border: none;
+        font-size: inherit
       }
 
       li {
@@ -198,6 +235,7 @@
       .tabcontent {
         display: none;
       }
+<<<<<<< HEAD
 
 
     </style>
@@ -208,6 +246,8 @@
         top: 2%;
         right: 2%;
     }
+=======
+>>>>>>> 3ddda1c536d77df7214b288340934ba01c2057a0
     </style>
 </body>
 
