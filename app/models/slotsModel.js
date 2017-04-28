@@ -105,7 +105,7 @@ exports.getLectureHall = function (lectureHall, done) {
     var rHours = (hours) + ":30-" + (hours + 1) + ":20"
   }
   else if (minutes >= 50) {
-    var rHours = "0"+(hours + 1) + ":00-0" +(hours + 1) + ":50"
+    var rHours = "0" + (hours + 1) + ":00-0" + (hours + 1) + ":50"
   }
   console.log(hours)
   console.log(minutes);
@@ -113,21 +113,21 @@ exports.getLectureHall = function (lectureHall, done) {
   console.log(day);
   console.log(lectureHall);
   console.log(d);
-  query = db.get().query('SELECT id,courseCode,timeSlot,rescheduled,prevId FROM slots WHERE lectureHall=? and day=? and timeSlot=?',[lectureHall,day,rHours], function (err, rows, fields) {
+  query = db.get().query('SELECT id,courseCode,timeSlot,rescheduled,prevId FROM slots WHERE lectureHall=? and day=? and timeSlot=?', [lectureHall, day, rHours], function (err, rows, fields) {
     if (err)
       console.log(err)
-    
+
     console.log(rows)
     if (rows[0].courseCode) {
       console.log(rows[0].courseCode)
-       var info={
-         id:rows[0].id,
-         courseCode:rows[0].courseCode,
-         timeSlot:rows[0].timeSlot,
-         date:d,
-         rescheduled:rows[0].rescheduled,
-         prevId:rows[0].prevId
-       }
+      var info = {
+        id: rows[0].id,
+        courseCode: rows[0].courseCode,
+        timeSlot: rows[0].timeSlot,
+        date: d,
+        rescheduled: rows[0].rescheduled,
+        prevId: rows[0].prevId
+      }
 
     }
     else
@@ -139,19 +139,29 @@ exports.getLectureHall = function (lectureHall, done) {
 
 }
 
-exports.unSetRecheduled=function(info,done){
-  query=db.get().query('UPDATE slots SET coursecode=NULL,rescheduled=NULL,prevId=NULL WHERE id=?',[info.id],function(err,rows,field){
-    if(err);
+exports.unSetRecheduled = function (info, done) {
+  query = db.get().query('UPDATE slots SET coursecode=NULL,rescheduled=NULL,prevId=NULL WHERE id=?', [info.id], function (err, rows, field) {
+    if (err);
 
-    if(rows){
-       query=db.get().query('UPDATE slots SET coursecode=? WHERE id=?',[info.courseCode,info.prevId],function(err,rows,field){
-        
-        if(rows){
+    if (rows) {
+      query = db.get().query('UPDATE slots SET coursecode=? WHERE id=?', [info.courseCode, info.prevId], function (err, rows, field) {
+
+        if (rows) {
           console.log(true);
           done(true)
         }
       })
     }
+  })
+}
+
+exports.getClassesByDay = function (day, done) {
+  console.log(day)
+  query = db.get().query('SELECT `courseCode`,`timeSlot`,`lectureHall` FROM slots WHERE day=? and courseCode!=""', day, function (err, rows) {
+    if (err)
+      console.log(err);
+
+    done(rows);
   })
 }
 /*
