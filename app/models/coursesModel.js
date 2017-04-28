@@ -64,19 +64,19 @@ exports.rescheduledCourses = function (userId, done) {
 
         console.log(notification);
         if (notification != 'no') {
-          string+= "  Your Class " + notification.courseCode + " has been shifted from " +
+          string += "  Your Class " + notification.courseCode + " has been shifted from " +
             notification.prevday + " " +
             notification.prevtimeSlot + " " +
             notification.prevlectureHall + " " +
             "to " +
             notification.day + " " +
             notification.timeSlot + " " +
-            notification.lectureHall +"</br>"
+            notification.lectureHall + "</br>"
         }
         console.log(tasksToGo)
         if (--tasksToGo === 0) {
           // No tasks left, good to go
-          
+
           onComplete(string);
         }
 
@@ -90,3 +90,75 @@ exports.rescheduledCourses = function (userId, done) {
 }
 
 exports.getCoursesByRegNo = getCoursesByRegNo;
+
+function getStatus(row, i) {
+  console.log('hello')
+  if (row[i].status == 'P')
+    return 1;
+  return 0;
+}
+
+var count = 0, value = 0;
+function c(value, count) {
+
+  var p = (count / value) * 100;
+  console.log("percent = "+p);
+}
+
+function calculatePercentage(row, i, count, value) {
+  var z = 0;
+  if (row[i]) {
+    console.log("inner iteration: " + i)
+    console.log(row[i].status)
+    value++;
+    //count += getStatus(row, i);
+    if (row[i].status == 'P') {
+      console.log(row[i].status)
+      count++;
+    }
+    i++;
+    console.log("value if=" +value);
+    console.log("count if="+ count);
+    calculatePercentage(row, i, count, value)
+  }
+  else {
+    console.log("value=" +value);
+    console.log("count="+ count);
+    c(value, count)
+  }
+  //console.log("in calculatePercentage: ")
+
+}
+
+function percentage(result, x) {
+  console.log("result[x] =" + result[x].regNo + "  " +  result[x].courseCode)
+  if ( result[x]) {
+    console.log("\n\niteration# " + x)
+    query = db.get().query('SELECT status FROM attendance WHERE regNo=? and courseCode=?', [result[x].regNo, result[x].courseCode], function (err, row) {
+      if (err) return done(err)
+      //console.log("\nprinting rows:\n")
+      //console.log(i);
+     // console.log("row="+ row[0].status);
+      var percent = calculatePercentage(row, 0, 0, 0)
+
+      percentage(result, x + 1);
+    });
+  }
+}
+exports.setAttendancePercentages = function (done) {
+  query = db.get().query('SELECT courseCode, regNo FROM studentCourses', function (err, result) {
+    if (err) return done(err)
+
+    //console.log("Printing studentCourses:")
+    //console.log(result)
+    var i = 0;
+    console.log("\n\ntesting:")
+    console.log(result[i].regNo)
+    // while(result[i]){
+    //   console.log("\nprinting data for "+result[i].regNo + " : " + result[i].courseCode)
+    //   i++;
+    // }
+    percentage(result, 0);
+    done(result)
+  })
+}

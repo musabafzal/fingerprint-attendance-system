@@ -9,6 +9,17 @@ module.exports = function (app, passport) {
     // HOME PAGE (with login links) ========
     // =====================================
 
+    app.get('/attendancePercentage', function (req, res) {
+
+        Courses.setAttendancePercentages(function (info) {
+
+            res.send(info)
+
+            //console.log(info);
+
+        });
+
+    });
 
     app.get('/', function (req, res) {
         res.redirect('/login'); // load the index.ejs file
