@@ -17,27 +17,44 @@ exports.getCourses = function (type, id, done) {
 
 }
 
-exports.registerStudentCourses = function (regNo, courses) {
+exports.registerStudentCourses = function (regNo, courses,done) {
   for (courseCode in courses) {
     if (courses[courseCode] != '') {
       post = { courseCode: courses[courseCode], regNo: regNo }
       query = db.get().query('INSERT INTO `studentCourses` SET ?', post, function (err, result) {
+        var message;
+        if (err) {
+          console.log(err);
+          message = "Not Registered";
+        }
+        else
+          message = "Successfully Registered"
+        done(message)
       })
     }
   }
 }
 var getCoursesByRegNo = function (regNo, done) {
-  query = db.get().query('SELECT courseCode FROM studentCourses WHERE regNo=?', regNo, function (err, result) {
+  query = db.get().query('SELECT courseCode,attendancePercent,classesHeld,attended FROM studentCourses WHERE regNo=?', regNo, function (err, result) {
     if (err) return done(err)
+    console.log(result)
     done(result)
   })
 }
 
-exports.registerTaCourses = function (id, courses) {
+exports.registerTaCourses = function (id, courses, done) {
   for (courseCode in courses) {
     if (courses[courseCode] != '') {
       post = { courseCode: courses[courseCode], id: id }
       query = db.get().query('INSERT INTO `taCourses` SET ?', post, function (err, result) {
+        var message;
+        if (err) {
+          console.log(err);
+          message = "Not Registered";
+        }
+        else
+          message = "Successfully Registered"
+        done(message)
       })
     }
   }
@@ -99,10 +116,24 @@ function getStatus(row, i) {
 }
 
 var count = 0, value = 0;
-function c(value, count) {
+function c(row, value, count) {
 
   var p = (count / value) * 100;
-  console.log("percent = "+p);
+  console.log("percent = " + p);
+  if (value == 0)
+    p = 0;
+
+  console.log("percent = " + p);
+  if (row[0]) {
+    console.log("reg=" + row[0].regNo);
+    console.log("value=" + value)
+    query = db.get().query('UPDATE studentCourses SET `attendancePercent`=?,`classesHeld`=?,`attended`=? WHERE `regNo`=? and `courseCode`=?',
+      [p, value, count, row[0].regNo, row[0].courseCode], function (err, rows, fields) {
+        console.log('done');
+
+      });
+  }
+
 }
 
 function calculatePercentage(row, i, count, value) {
@@ -117,28 +148,29 @@ function calculatePercentage(row, i, count, value) {
       count++;
     }
     i++;
-    console.log("value if=" +value);
-    console.log("count if="+ count);
+    console.log("value if=" + value);
+    console.log("count if=" + count);
     calculatePercentage(row, i, count, value)
   }
   else {
-    console.log("value=" +value);
-    console.log("count="+ count);
-    c(value, count)
+    console.log("value=" + value);
+    console.log("count=" + count);
+    c(row, value, count)
   }
   //console.log("in calculatePercentage: ")
 
 }
 
 function percentage(result, x) {
-  console.log("result[x] =" + result[x].regNo + "  " +  result[x].courseCode)
-  if ( result[x]) {
+
+  if (result[x]) {
+    console.log("result[x] =" + result[x].regNo + "  " + result[x].courseCode)
     console.log("\n\niteration# " + x)
-    query = db.get().query('SELECT status FROM attendance WHERE regNo=? and courseCode=?', [result[x].regNo, result[x].courseCode], function (err, row) {
+    query = db.get().query('SELECT regNo,courseCode,status FROM attendance WHERE regNo=? and courseCode=?', [result[x].regNo, result[x].courseCode], function (err, row) {
       if (err) return done(err)
       //console.log("\nprinting rows:\n")
       //console.log(i);
-     // console.log("row="+ row[0].status);
+      // console.log("row="+ row[0].status);
       var percent = calculatePercentage(row, 0, 0, 0)
 
       percentage(result, x + 1);
@@ -159,6 +191,6 @@ exports.setAttendancePercentages = function (done) {
     //   i++;
     // }
     percentage(result, 0);
-    done(result)
+    //done(result)
   })
 }

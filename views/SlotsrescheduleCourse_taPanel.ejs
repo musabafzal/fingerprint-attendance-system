@@ -1,23 +1,83 @@
 <!doctype html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TA Panel | Reschedule</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
 
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 <body>
 
-  <form action="/panel/ta/rescheduleCourse/<%=courseCode%>/getSlots?day=<%=day%>&timeSlots=<%=time%>&classSlot=<%=classSlot%>" method="POST">
-    <%for(var i=0;i<slots.length;i++){%>
-      <input type="radio" name="lectureHall" value="<%=slots[i].lectureHall%>">
-      <%=slots[i].lectureHall%><br>
-        <%}%>
-          <input type="submit">
+  <form action="/panel/ta/rescheduleCourse/<%=courseCode%>/getSlots?day=<%=day%>&timeSlots=<%=time%>&classSlot=<%=classSlot%>"
+    method="POST">
+    <div class="slots"  onclick="myfunc()">
+      <%for(var i=0;i<slots.length;i++){%>
+
+
+        <div><input type="radio" name="lectureHall" value="<%=slots[i].lectureHall%>" style="display:none">
+          <%=slots[i].lectureHall%>
+        </div>
+
+        
+            <%}%>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <input class="btn btn-default" type="submit">
+
+
+
   </form>
   <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
   <style>
-  .fix{
-    position: absolute;
+    .fix {
+      position: absolute;
       top: 2%;
       right: 2%;
-  }
+    }
+    
+    .slots div {
+      float: left;
+      width: 100px;
+      height: 20px;
+      padding: 5px;
+      line-height: 20px;
+      text-align: center;
+      background: #ccc;
+      margin: 2px;
+      cursor: pointer;
+    }
+    
+    div.selected {
+      background: #00cc00;
+    }
   </style>
+  <script>
+    
+    function myfunc(){
+   
+      console.log(      $(this).val())
+      $(this).closest(".slots").find("div").removeClass("selected");
+      $(this).addClass("selected").find(":radio").click();
+    
+    }
+  </script
 </body>
 
 </html>

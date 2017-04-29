@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CMS</title>
+    <title>TA Panel | Register Courses</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -28,6 +28,18 @@
       background-image: url("http://i63.tinypic.com/v7cxmb.png");
       color: #4a494e;
       font-family: Courier new;
+    }
+    
+    .fix {
+      position: absolute;
+      top: 2%;
+      right: 2%;
+    }
+    
+    .left {
+      position: absolute;
+      top: 2%;
+      left: 2%;
     }
   </style>
 
@@ -97,18 +109,13 @@
           <button type="submit" class="btn btn-default">Register Courses</button>
       </form>
     </div>
+
+    <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+    <a href="/panel/ta"><button type="button" class="left btn btn-default">Panel</button></a>
     </div>
     <!-- /.container -->
 
-    <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
-    <style>
-      .fix {
-        position: absolute;
-        top: 2%;
-        right: 2%;
-      }
-    </style>
-
+   
     <script type="text/javascript">
       $(document).ready(function () {
         $(".slots").select2();

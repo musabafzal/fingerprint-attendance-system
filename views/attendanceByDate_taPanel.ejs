@@ -1,52 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Admin Login</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-<body>
+
+
+
 <body style="font-family:Courier new">
 
-<div class="container">
-  <h2 style="text-align:center">Attendance</h2> <br>
-  <h3 style="text-align:center"><%=date%></h3><br>
-	<form action="/panel/ta/viewUpdateAttendance/<%=courseCode%>/<%=date%>" method="post">
-   <table	class="table table-striped">
-     <tr>
-       <th>Date</th>
-       <th>Status</th>
-     </tr>
-     <%for(regNo in attendance){%>
-       <tr>
-       <td><%=attendance[regNo].regNo%></td>
-       <td>
-       <input type="user" value="<%=attendance[regNo].status%>" name="<%=attendance[regNo].regNo%>">
-       </td>
-       </tr>
-     <%}%>
-   </table>
-   <button type="submit"> Update
-   </button>
-   </form>
+  <div class="container">
+    <h2 style="text-align:center">Attendance</h2> <br>
+    <h3 style="text-align:center">
+      <%=date%>
+    </h3><br>
+    <form action="/panel/ta/viewUpdateAttendance/<%=courseCode%>/<%=date%>" method="post">
+      <table class="table table-striped">
+        <tr>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+        <%for(regNo in attendance){%>
+          <tr>
+            <td>
+              <%=attendance[regNo].regNo%>
+            </td>
+            <td>
+              <input type="user" value="<%=attendance[regNo].status%>" name="<%=attendance[regNo].regNo%>" pattern="[PA]{1}" title="Please type A or P">
+            </td>
+          </tr>
+          <%}%>
+      </table>
+      <button type="submit"> Update</button>
+    </form>
+
+    <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+    <a href="/panel/ta"><button type="button" class="left btn btn-default">Panel</button></a>
 </div>
 
-<a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
 <style>
 .fix{
   position: absolute;
     top: 2%;
     right: 2%;
+}
+.left{
+  position: absolute;
+    top: 2%;
+    left: 2%;
 }
 </style>
 

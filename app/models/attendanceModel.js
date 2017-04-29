@@ -89,6 +89,7 @@ exports.updateAttendance = function (courseCode, date, regList, done) {
   var i = 0
   for (regNo in regList) {
     i++
+   
       console.log(i+" "+regNo+" "+regList[regNo])
       query = db.get().query('UPDATE attendance SET status=? WHERE regNo=? and courseCode=? and date=?', [regList[regNo], regNo, courseCode, date],function (err, rows, fields) {
         });

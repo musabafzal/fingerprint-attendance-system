@@ -1,42 +1,64 @@
 <!doctype html>
 <html>
 
-<body>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body style="font-family:Courier new">
   <%timeSlots= ['08:00-08:50', '09:00-09:50', '10:30-11:20', '11:30-12:20', '12:30-13:20', '14:30-15:20', '15:30-16:20', '16:30-17:20'];%>
     <%timeSlots2= ['08:00-08:50', '09:00-09:50', '10:00-10:50', '11:00-11:50', '12:00-12:50', '14:30-15:20', '15:30-16:20', '16:30-17:20'];%>
       <%day=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']%>
 
-        <div>
-          <div>Select the class which you want to reschedule</div>
-          <table>
+
+        <div class="container">
+          <h2 style="text-align:center">Reschedule</h2> <br>
+          <h3 style="text-align:center">Select Slot to reschedule</h3><br>
+
+
+          <table class="table table-striped">
             <tr>
-              <th></th>
-              <th>Lecture Hall</th>
-              <th>Day</th>
-              <th>Time</th>
+
+              <th style="text-align: center">Lecture Hall</th>
+              <th style="text-align: center">Day</th>
+              <th style="text-align: center">Time</th>
             </tr>
             <%for(var i=0;i<courseSlots.length;i++){%>
               <tr>
 
-                <td><input type="radio" name="Slot" value="<%=courseSlots[i].id%>" id="<%=courseSlots[i].id%>">
-                  <%=courseSlots[i].id%>
-                </td>
-                <td>
+                <td><label class="labels" id="label_<%=courseSlots[i].id%>" for="<%=courseSlots[i].id%>" onclick="changecolor()">
+                <input type="radio" name="Slot" value="<%=courseSlots[i].id%>" id="<%=courseSlots[i].id%>" style="display:none">
                   <%=courseSlots[i].lectureHall%>
-                </td>
-                <td>
+                </label></td>
+                <td><label class="labels" id="label_<%=courseSlots[i].id%>" for="<%=courseSlots[i].id%>" onclick="changecolor()">
                   <%=courseSlots[i].day%>
                 </td>
-                <td>
+                <td><label  class="labels" id="label_<%=courseSlots[i].id%>" for="<%=courseSlots[i].id%>" onclick="changecolor()">
                   <%=courseSlots[i].timeSlot%>
                 </td>
+                
               </tr>
               <%}%>
           </table>
-        </div>
-        <div>
+          <div>
           <label>Day</label>
-          <select name="day" value="Monday" onchange=func1(this.value) id="sel">
+                  <select name="day" value="Monday" onchange=func1(this.value) id="sel">
 
               <option value="Monday" id="option">Monday</option>
               <option value="Tuesday" id="option">Tuesday</option>
@@ -45,6 +67,8 @@
               <option value="Friday" id="option">Friday</option>
 
           </select> </div>
+        <br>
+        <br>
         <div>
           <label>Time</label>
 
@@ -62,14 +86,17 @@
 
           </select>
         </div>
-
-        <button onclick="showLH()">Get Free Lecture Halls</button>
-
+        <br>
+        <br>
+        <button class="btn btn-default" onclick="showLH()">Get Free Lecture Halls</button>
+        <br>
+        <br>
         <div id="txtHint"></div>
+        </div>
+
 
 
         <script>
-
           function func1(val) {
 
             if (val == 'Friday') {
@@ -90,11 +117,30 @@
               document.getElementById("opt5").innerHTML = "12:30-13:20";
             }
           }
+          function changecolor() {
 
+            // var classSlot = document.querySelector('input[name = "Slot"]:checked').value;
+            //console.log(classSlot);
+            // document.getElementById("label_" + classSlot).style.backgroundColor = "blue";
+            $("input[type=radio]").each(function () {
+              if ($(this).is(":checked")) {
+
+                $(this).closest("tr").css("border", "1px solid red");
+                $(this).closest("tr").css("background-color", "#999");
+                //document.getElementById("label_" + $(this).val()).style.backgroundColor = "grey";
+              } else {
+                $(this).closest("tr").css("border", "initial");
+                $(this).closest("tr").css("background-color", "initial");
+                //document.getElementById("label_" + $(this).val()).style.backgroundColor = "white";
+              }
+            });
+          }
           function showLH() {
             day = document.getElementById("sel").value;
             time = document.getElementById("sel2").value;
+
             var classSlot = document.querySelector('input[name = "Slot"]:checked').value;
+            console.log(classSlot)
             if (day == "" || time == "" || classSlot == "") {
               document.getElementById("txtHint").innerHTML = "Select Day, Time and Class Slot";
               return;
@@ -113,31 +159,85 @@
             xmlhttp.open("GET", "/panel/ta/rescheduleCourse/<%=courseCode%>/getSlots?day=" + day + "&timeSlots=" + time + "&classSlot=" + classSlot, true);
             xmlhttp.send();
           }
+          function myfunc() {
+
+            $(".slots :radio").hide().click(function (e) {
+              e.stopPropagation();
+            });
+            $(".slots div").click(function (e) {
+              $(this).closest(".slots").find("div").removeClass("selected");
+              $(this).addClass("selected").find(":radio").click();
+            });
+
+          }
         </script>
         <style>
           table {
             border-collapse: collapse;
-
           }
-
+          
           table,
           th,
           td {
             border: 1px solid black;
+            text-align: centre;
           }
-
+          
           td {
             text-align: center;
           }
-        </style>
-        <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
-        <style>
-        .fix{
-          position: absolute;
+          
+          label {
+            cursor: pointer;
+            display: block;
+          }
+          
+          tr:hover {
+            background-color: black !important;
+            color: white !important;
+          }
+          
+          .radios input[type=radio] {
+            display: none,
+          }
+          
+          .slots div {
+            float: left;
+            width: 100px;
+            padding: 5px;
+            height: inherit;
+            padding-bottom: 5px;
+            text-align: center;
+            background: whitesmoke;
+            border: 1px solid black;
+            margin: 2px;
+            cursor: pointer;
+          }
+          
+          .slots div:hover {
+            background-color: black !important;
+            color: white !important;
+          }
+          
+          div.selected {
+            background: #999;
+          }
+          
+          .fix {
+            position: absolute;
             top: 2%;
             right: 2%;
-        }
+          }
+          
+          .left {
+            position: absolute;
+            top: 2%;
+            left: 2%;
+          }
         </style>
+        <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+        <a href="/panel/ta"><button type="button" class="left btn btn-default">Panel</button></a>
+        
 </body>
 
 </html>

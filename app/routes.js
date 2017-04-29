@@ -3,12 +3,13 @@ var Slots = require('../app/models/slotsModel');
 var Courses = require('../app/models/coursesModel');
 var Attendance = require('../app/models/attendanceModel');
 var Populate = require('../app/models/populateModel');
-
+//Attendance.setAttendanceByDay('Tuesday');
+Courses.setAttendancePercentages();
 module.exports = function (app, passport) {
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
-    
+
     app.get('/attendancePercentage', function (req, res) {
 
         Courses.setAttendancePercentages(function (info) {
@@ -75,7 +76,7 @@ module.exports = function (app, passport) {
 
         res.render(req.user.type + 'Panel.ejs', {
             user: req.user, // get the user out of session and pass to template
-            message:""
+            message: ""
         });
 
     });
@@ -98,10 +99,11 @@ module.exports = function (app, passport) {
                 });
             });
         } else if (req.params.user == 'student' && req.params.method == 'viewAttendance') {
-            Courses.getCoursesByRegNo(req.user.id, function (courses) {
+            Courses.getCoursesByRegNo(req.user.id, function (info) {
                 res.render(req.params.method + '_' + req.user.type + 'Panel.ejs', {
                     user: req.user, // get the user out of session and pass to template
-                    courses: courses
+                    info: info,
+
                 });
             });
         }
@@ -147,7 +149,7 @@ module.exports = function (app, passport) {
             res.render('courseAttendance_studentPanel.ejs', {
                 user: req.user, // get the user out of session and pass to template
                 courseAttendance: courseAttendance,
-                courseCode : req.params.courseCode
+                courseCode: req.params.courseCode
             });
         })
     });
@@ -205,15 +207,16 @@ module.exports = function (app, passport) {
     });
 
     app.post('/panel/student/registerCourses', isLoggedIn, function (req, res) {
-        Courses.registerStudentCourses(req.user.id, req.body)
-       
-        res.render('studentPanel.ejs' , { message: 'Successfully Registered' })
-        
+        Courses.registerStudentCourses(req.user.id, req.body, function (message) {
+            res.render('studentPanel.ejs', { message: message })
+        })
+
     });
 
     app.post('/panel/ta/registerCourses', isLoggedIn, function (req, res) {
-        Courses.registerTaCourses(req.user.id, req.body)
-        res.render('taPanel.ejs' , { message: 'Successfully Registered' })
+        Courses.registerTaCourses(req.user.id, req.body, function (message) {
+            res.render('taPanel.ejs', { message: message })
+        })
     });
 
     app.post('/panel/ta/viewUpdateAttendance/:courseCode/:date', isLoggedIn, function (req, res) {
