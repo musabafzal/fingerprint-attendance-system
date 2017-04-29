@@ -4,7 +4,7 @@ var Courses = require('../app/models/coursesModel');
 var Attendance = require('../app/models/attendanceModel');
 var Populate = require('../app/models/populateModel');
 //Attendance.setAttendanceByDay('Tuesday');
-Courses.setAttendancePercentages();
+
 module.exports = function (app, passport) {
     // =====================================
     // HOME PAGE (with login links) ========
@@ -73,7 +73,9 @@ module.exports = function (app, passport) {
 
     app.get('/panel/:user', isLoggedIn, function (req, res) {
 
-
+        if(req.params.user=='student'){
+            Courses.setAttendancePercentages();
+        }
         res.render(req.user.type + 'Panel.ejs', {
             user: req.user, // get the user out of session and pass to template
             message: ""
@@ -99,6 +101,7 @@ module.exports = function (app, passport) {
                 });
             });
         } else if (req.params.user == 'student' && req.params.method == 'viewAttendance') {
+            
             Courses.getCoursesByRegNo(req.user.id, function (info) {
                 res.render(req.params.method + '_' + req.user.type + 'Panel.ejs', {
                     user: req.user, // get the user out of session and pass to template

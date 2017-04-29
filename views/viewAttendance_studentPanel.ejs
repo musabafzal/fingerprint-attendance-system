@@ -30,8 +30,8 @@
           <th>
             <div style="display:inline-flex; width:100%;">
               <div>Course</div>
-              <div style="position:absolute; right:40%;"> Classes Held </div>
-              <div style="position:absolute; right:30%;"> Attended </div>
+              <div class="hidecol" style="position:absolute; right:40%;"> Classes Held </div>
+              <div class="hidecol" style="position:absolute; right:30%;"> Attended </div>
               <div style="position:absolute; right:10%;"> Attendance Percentage </div>
             </div>
           </th>
@@ -51,10 +51,10 @@
                     <%=info[i].courseCode%>
                   </a>
                 </div>
-                <div style="position:absolute; right:42%;">
+                <div class="hidecol" style="position:absolute; right:42%;">
                   <%=info[i].classesHeld%>
                 </div>
-                <div style="position:absolute; right:32%;">
+                <div class="hidecol" style="position:absolute; right:32%;">
                   <%=info[i].attended%>
                 </div>
                 <%if(info[i].attendancePercent!=null){%>
@@ -90,6 +90,12 @@
   position: absolute;
     top: 2%;
     left: 2%;
+}
+
+@media only screen and (max-width: 768px) {
+    .hidecol {
+        display:none;  
+    }
 }
 </style>
 </body>
