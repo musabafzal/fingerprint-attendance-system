@@ -3,9 +3,9 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script src="/jquery/3.2.0/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 </head>
 
 
@@ -62,7 +62,7 @@
             id++
             %>
                   <td>
-                    <input type="user" class="lol" value="<%=slots[id-1].courseCode%>" name="field_<%=id%>" 
+                    <input type="user" class="lol" value="<%=slots[id-1].courseCode%>" name="field_<%=id%>"
                     pattern="[A-Z]{2}[0-9]{3}|[A-Z]{2}[0-9]{3}\s[A-Z]{1}" title="Please enter in this format: CS102 or CS101 A">
                   </td>
                   <%}%>
@@ -208,7 +208,7 @@
       position: absolute;
         top: 2%;
         right: 2%;
-        
+
     }
     .left {
         position: absolute;
@@ -220,7 +220,7 @@
     <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
      <a href="/panel/admin"><button type="button" class="left btn btn-default">Panel</button></a>
     <style>
-    
+
     </style>
 </body>
 

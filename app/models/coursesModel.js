@@ -37,7 +37,7 @@ exports.registerStudentCourses = function (regNo, courses,done) {
 var getCoursesByRegNo = function (regNo, done) {
   query = db.get().query('SELECT courseCode,attendancePercent,classesHeld,attended FROM studentCourses WHERE regNo=?', regNo, function (err, result) {
     if (err) return done(err)
-    console.log(result)
+    //console.log(result)
     done(result)
   })
 }
@@ -68,18 +68,18 @@ exports.getCoursesById = function (id, done) {
 exports.rescheduledCourses = function (userId, done) {
   var string = ""
   var onComplete = function (string) {
-    console.log(string)
+    //console.log(string)
     done(string);
   };
   getCoursesByRegNo(userId, function (courses) {
     var keys = Object.keys(courses)
-    console.log(courses)
+    //console.log(courses)
     var tasksToGo = keys.length;
     keys.forEach(function (key) {
       Slots.getRescheduledSlots(courses[key].courseCode, function (notification) {
         console.log('notification');
 
-        console.log(notification);
+        //console.log(notification);
         if (notification != 'no') {
           string += "  Your Class " + notification.courseCode + " has been shifted from " +
             notification.prevday + " " +
@@ -90,7 +90,7 @@ exports.rescheduledCourses = function (userId, done) {
             notification.timeSlot + " " +
             notification.lectureHall + "</br>"
         }
-        console.log(tasksToGo)
+        //console.log(tasksToGo)
         if (--tasksToGo === 0) {
           // No tasks left, good to go
 

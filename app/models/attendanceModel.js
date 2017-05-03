@@ -31,12 +31,13 @@ exports.getAttendanceByDate = function (courseCode, date, done) {
 function insertAttendanceByRegNo(row, timeSlot, courseCode, x) {
   if (row[x]) {
     var date = new Date();
-    var date1 = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+    month = date.getMonth()+1
+    var date1 = date.getDate() + "-" + month + "-" + date.getFullYear();
     query = db.get().query('INSERT INTO attendance (regNo, courseCode, date, timeSlot,status) VALUES (?,?,?,?,"A")',
       [row[x].regNo, courseCode, date1, timeSlot], function (err, rows) {
         if (rows) {
-          console.log('inserted by insertAttendanceByRegNo: ')
-          console.log(row[x].regNo+"   "+courseCode)
+          //console.log('inserted by insertAttendanceByRegNo: ')
+          //console.log(row[x].regNo+"   "+courseCode)
 
           insertAttendanceByRegNo(row, timeSlot, courseCode, x + 1)
         }
@@ -50,7 +51,7 @@ function setStudentAttendance(courseCode, timeSlot, done) {
   query = db.get().query('SELECT * FROM studentCourses WHERE courseCode=?', courseCode, function (err, rows) {
     if (rows) {
 
-      console.log(rows)
+      //console.log(rows)
       insertAttendanceByRegNo(rows, timeSlot, courseCode, 0)
       done(true);
       // for (row in rows) {
@@ -68,7 +69,6 @@ function startSetting(info, x) {
   if (info[x]) {
     setStudentAttendance(info[x].courseCode, info[x].timeSlot, function (row) {
       if (row) {
-        console.log("iteration# " +x)
         startSetting(info, x + 1)
       }
     })
@@ -79,7 +79,7 @@ function startSetting(info, x) {
 exports.setAttendanceByDay = function (day) {
 
   Slots.getClassesByDay(day, function (info) {
-    console.log(info)
+    //console.log(info)
     startSetting(info, 0);
   })
 //=======
@@ -89,7 +89,7 @@ exports.updateAttendance = function (courseCode, date, regList, done) {
   var i = 0
   for (regNo in regList) {
     i++
-   
+
       console.log(i+" "+regNo+" "+regList[regNo])
       query = db.get().query('UPDATE attendance SET status=? WHERE regNo=? and courseCode=? and date=?', [regList[regNo], regNo, courseCode, date],function (err, rows, fields) {
         });

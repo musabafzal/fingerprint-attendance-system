@@ -5,7 +5,7 @@ var db = require('../../config/database.js')
 //   for(var i=0; i<500;i++){
 //     post  = {regNo: s, password: s, name: "Mr A",  fingerPrint: "******"}
 //     query=db.get().query('INSERT INTO student SET ?', post, function(err,rows,fields){
-//       console.log(err)
+//       // console.log(err)
 //     });
 //     s++;
 //   }
@@ -16,7 +16,7 @@ exports.populateTaTable= function(){
   for(var i=0; i<50;i++){
     post  = {id: s, password: s, name: "Mr TA"}
     query=db.get().query('INSERT INTO ta SET ?', post, function(err,rows,fields){
-      console.log(err)
+      // console.log(err)
     });
     s++;
   }
@@ -38,7 +38,7 @@ exports.populateTaTable= function(){
 //      id++;
 //      query=db.get().query('INSERT INTO slots SET id = ?, day = ?, timeSlot = ?, lectureHall =?',[id,days[d],timeSlots[o],lectureHalls[l]],
 //      function(err,rows,fields){
-//        console.log(err)
+//        // console.log(err)
 //      });
 //
 //     }

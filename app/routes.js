@@ -3,6 +3,8 @@ var Slots = require('../app/models/slotsModel');
 var Courses = require('../app/models/coursesModel');
 var Attendance = require('../app/models/attendanceModel');
 var Populate = require('../app/models/populateModel');
+
+
 //Attendance.setAttendanceByDay('Tuesday');
 
 module.exports = function (app, passport) {
@@ -22,6 +24,7 @@ module.exports = function (app, passport) {
 
     });
 
+
     app.get('/', function (req, res) {
         res.redirect('/login'); // load the index.ejs file
     });
@@ -37,7 +40,7 @@ module.exports = function (app, passport) {
 
             res.send(info)
 
-            console.log(info);
+            //console.log(info);
             if (info.rescheduled) {
                 Slots.unSetRecheduled(info, function (bool) {
                     console.log(bool);
@@ -101,7 +104,7 @@ module.exports = function (app, passport) {
                 });
             });
         } else if (req.params.user == 'student' && req.params.method == 'viewAttendance') {
-            
+
             Courses.getCoursesByRegNo(req.user.id, function (info) {
                 res.render(req.params.method + '_' + req.user.type + 'Panel.ejs', {
                     user: req.user, // get the user out of session and pass to template
@@ -125,7 +128,7 @@ module.exports = function (app, passport) {
         }
         else if (req.params.user == 'ta' && req.params.method == 'registerCourses') {
             Slots.getUniqueCourses(function (courseList) {
-                console.log(courseList)
+                //console.log(courseList)
                 res.render(req.params.method + '_' + req.user.type + 'Panel.ejs', {
                     user: req.user, // get the user out of session and pass to template
                     courseList: courseList

@@ -2,21 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-    crossorigin="anonymous">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css" >
 </head>
 
 <body style="font-family:Courier new">
@@ -28,76 +17,92 @@
       <thead>
         <tr>
           <th>
-            <div style="display:inline-flex; width:100%;">
-              <div>Course</div>
-              <div class="hidecol" style="position:absolute; right:40%;"> Classes Held </div>
-              <div class="hidecol" style="position:absolute; right:30%;"> Attended </div>
-              <div style="position:absolute; right:10%;"> Attendance Percentage </div>
-            </div>
+            <div style="text-align:center;">Course</div>
           </th>
-        </tr>
-      </thead>
-      <tbody>
+          <th>
+            <div class="hidecol" style="text-align:center;"> Classes Held </div>
+          </th>
+          <th>
+            <div class="hidecol" style="text-align:center;"> Attended </div>
+            <th>
+              <div style="text-align:center;"> Percentage </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
 
-        <%
+          <%
           for(i in info){
             currCourse=info[i].courseCode.replace(/ /g,"_");
             %>
-          <tr>
-            <td style="width:100%">
-              <div style="display:inline-flex; width:100%;">
-                <div>
+            <tr>
+              <td>
+                <div style="text-align:center;">
                   <a href="/panel/student/viewAttendance/<%=currCourse%>">
                     <%=info[i].courseCode%>
                   </a>
                 </div>
-                <div class="hidecol" style="position:absolute; right:42%;">
+              </td>
+              <td>
+                <div class="hidecol" style="text-align:center;">
                   <%=info[i].classesHeld%>
                 </div>
-                <div class="hidecol" style="position:absolute; right:32%;">
+              </td>
+              <td>
+                <div class="hidecol" style="text-align:center;">
                   <%=info[i].attended%>
                 </div>
-                <%if(info[i].attendancePercent!=null){%>
-                  <div style="position:absolute; right:15%;">
-                    <%=info[i].attendancePercent%>
+              </td>
+              <%if(info[i].attendancePercent!=null){%>
+                <td>
+                  <div style="text-align:center;">
+                    <%percent=parseInt(info[i].attendancePercent)%>
+                    <%=percent%>
                   </div>
-                  <%}else{%>
-                    <div style="position:absolute; right:15%;"> 0 </div>
-                    <%}%>
-              </div>
-            </td>
-          </tr>
-          <%}
-          %>
+                </td>
+                <%}else{%>
+                  <td>
+                    <div> <%=0%> </div>
+                  </td>
+                  <%}%>
+                </tr>
+                <%}
+                %>
 
-      </tbody>
-    </table>
+              </tbody>
+            </table>
+          </div>
 
-    <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
-    <a href="/panel/student"><button type="button" class="left btn btn-default">Panel</button></a>
+          <a href="/logout"><button type="button" class="fix btn btn-default">Logout</button></a>
+          <a href="/panel/student"><button type="button" class="left btn btn-default">Panel</button></a>
 
 
 
-  </div>
 
-  <style>
-.fix{
-  position: absolute;
-    top: 2%;
-    right: 2%;
-}
-.left{
-  position: absolute;
-    top: 2%;
-    left: 2%;
-}
+          <style>
+          .fix{
+            position: absolute;
+            top: 2%;
+            right: 2%;
+          }
+          .left{
+            position: absolute;
+            top: 2%;
+            left: 2%;
+          }
+          .fixwidth{
+            width:59px;
+          }
 
-@media only screen and (max-width: 768px) {
-    .hidecol {
-        display:none;  
-    }
-}
-</style>
-</body>
+          @media only screen and (max-width: 768px) {
+            .hidecol {
+              display:none;
+            }
+            .perc{
+              left:66% !important;
+            }
+          }
+          </style>
+        </body>
 
-</html>
+        </html>

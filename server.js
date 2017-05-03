@@ -20,6 +20,9 @@ var db = require('./config/database.js');
 
 // configuration ===============================================================
 app.use(bodyParser.urlencoded({extended:false}))
+app.use(express.static(__dirname));
+
+console.log(__dirname + '/public')
 
 db.connect(function(err) {
   if (err) {
@@ -30,7 +33,6 @@ db.connect(function(err) {
     console.log('Connected.')
   }
 })
-scheduler.run()
  require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
@@ -45,6 +47,8 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secre
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+
+scheduler.run()
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
